@@ -25,7 +25,7 @@ using UnityEngine;
 
 // 목표 7 : 플레이어의 공격을 받으면 hitdamage 만틈 에너미의 hp를 감소시킨다.
 // 필요속성 : hp
-public class EnemyFSM : MonoBehaviour
+public class EnemyFsm : MonoBehaviour
 {
     // 필요속성: 적 상태
     enum EnemyState
@@ -135,9 +135,19 @@ public class EnemyFSM : MonoBehaviour
         if(hp > 0)
         {
             enemyState = EnemyState.Damaged;
-            print("상태전환 : any state -> Die ");
+            print("상태전환 : any state -> Damaged ");
             Damaged();
         }
+
+        // 목표 9 : 그렇지 않으면 죽음 상태로 전환
+        else
+        {
+            enemyState = EnemyState.Die;
+            print("상태전환 : any state -> Die ");
+            Die();
+        }
+
+
     }
 
     private void Damaged()
@@ -152,7 +162,7 @@ public class EnemyFSM : MonoBehaviour
     IEnumerator DamageProcess()
     {
         // 피격 모션 시간만큼 기다린다.
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(0.5f);
 
         //현재 상태를 이동 상태로 전환한다.
         enemyState = EnemyState.Move;
@@ -244,10 +254,5 @@ public class EnemyFSM : MonoBehaviour
             enemyState = EnemyState.Move;
             print("상태전환: Idle -> Move");
         }
-    }
-
-    internal void DamageAction()
-    {
-        throw new NotImplementedException();
     }
 }

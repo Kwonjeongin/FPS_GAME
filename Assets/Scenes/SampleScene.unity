@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 425608169}
   - component: {fileID: 425608167}
   - component: {fileID: 425608172}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,6 +358,7 @@ MonoBehaviour:
   lastAttackTime: 0
   attackPower: 2
   moveDistance: 20
+  hp: 5
 --- !u!1 &595768141
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +509,7 @@ MonoBehaviour:
   firePosition: {fileID: 794914713}
   power: 50
   hitEffect: {fileID: 100002, guid: 54dd9cb5740188a488b8baebbf19207c, type: 3}
+  weaponPower: 2
 --- !u!114 &595768150
 MonoBehaviour:
   m_ObjectHideFlags: 0

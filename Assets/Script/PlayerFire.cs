@@ -93,8 +93,8 @@ public class PlayerFire : MonoBehaviour
                 // 목적3 : 레이가 부딫힌 대상이 Enemy라면 Enemy 에게 데미지를 주겠다.
                 if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")) 
                 {
-                    EnemyFSM enemyFSM = hitInfo.transform.GetComponent<EnemyFSM>();
-                    enemyFSM.DamageAction();
+                    EnemyFsm enemyFsm = hitInfo.transform.gameObject.GetComponent<EnemyFsm>();
+                    enemyFsm.DamageAction(1);
                 }
             }
         }
