@@ -16,7 +16,10 @@ using UnityEngine;
 
 // 목적 3 점프중인지 확인하고, 점프중이면 점프전 상태로 초기화 하고싶다. 
 // 순서 3-1
-public class PlyerMove : MonoBehaviour
+
+// 목적3 : 플레이어가 피격을 당하면 hp를 damage 만큼 깎는다.
+// 필요속성 : hp
+public class PlayerMove : MonoBehaviour
 {
     // 필요속성 : 이동속도
     public float speed = 10;
@@ -28,6 +31,9 @@ public class PlyerMove : MonoBehaviour
     float yVelocity = 0;
     public float jumpPower = 10; 
     public bool isJumping = false;
+
+    // 필요속성3 : hp
+    public int hp = 10;
 
     private void Start()
     {
@@ -57,8 +63,6 @@ public class PlyerMove : MonoBehaviour
             yVelocity = 0;
         }
 
-        print(yVelocity);
-
         if (Input.GetButtonDown("Jump") && !isJumping )
         {
             yVelocity = jumpPower;
@@ -80,7 +84,11 @@ public class PlyerMove : MonoBehaviour
         // 2-2 캐릭터 컨트롤러로 나를 이동시키고 싶다.
         characterController.Move(dir * speed * Time.deltaTime);
 
+    }
+    // 목적3 : 플레이어가 피격을 당하면 hp를 damage 만큼 깎는다.
 
-
+    public void DamageAction(int damage)
+    {
+        hp -= damage;
     }
 }

@@ -14,6 +14,9 @@ using UnityEngine;
 // 2-3. 레이가 부딪힌 대상의 정보를 저장할 수 있는 변수를 만든다.
 // 2-4. 레이를 발사하고, 부딪힌 물체가 있으면 그 위치에 피격 효과를 만든다.
 // 필요속성: 피격효과 게임오브젝트, 이펙트의 파티클 시스템
+
+// 목적3 : 레이가 부딫힌 대상이 Enemy라면 Enemy 에게 데미지를 주겠다.
+
 public class PlayerFire : MonoBehaviour
 {
     // 필요속성: 폭탄 게임오브젝트, 발사 위치, 방향
@@ -50,6 +53,8 @@ public class PlayerFire : MonoBehaviour
     }
     int remainder;
 
+    public int weaponPower = 2;
+
     // Update is called once per frame
     void Update()
     {
@@ -84,6 +89,13 @@ public class PlayerFire : MonoBehaviour
 
                 // 피격 이펙트를 재생한다.
                 particleSystem.Play();
+
+                // 목적3 : 레이가 부딫힌 대상이 Enemy라면 Enemy 에게 데미지를 주겠다.
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")) 
+                {
+                    EnemyFSM enemyFSM = hitInfo.transform.GetComponent<EnemyFSM>();
+                    enemyFSM.DamageAction();
+                }
             }
         }
     }

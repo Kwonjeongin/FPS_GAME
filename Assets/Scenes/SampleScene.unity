@@ -355,6 +355,9 @@ MonoBehaviour:
   findDistance: 5
   moveSpeed: 5
   attackDistance: 2
+  lastAttackTime: 0
+  attackPower: 2
+  moveDistance: 20
 --- !u!1 &595768141
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,10 +369,10 @@ GameObject:
   - component: {fileID: 595768145}
   - component: {fileID: 595768144}
   - component: {fileID: 595768143}
-  - component: {fileID: 595768147}
   - component: {fileID: 595768146}
   - component: {fileID: 595768148}
   - component: {fileID: 595768149}
+  - component: {fileID: 595768150}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -463,21 +466,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
---- !u!114 &595768147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595768141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fde663371a26ab941ae87e8be53a9bcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpPower: 5
-  isJumping: 0
 --- !u!143 &595768148
 CharacterController:
   m_ObjectHideFlags: 0
@@ -518,8 +506,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bomb: {fileID: 7175073014593684945, guid: 04567430dca4e644cbc752d790d44f72, type: 3}
   firePosition: {fileID: 794914713}
-  power: 10
+  power: 50
   hitEffect: {fileID: 100002, guid: 54dd9cb5740188a488b8baebbf19207c, type: 3}
+--- !u!114 &595768150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595768141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde663371a26ab941ae87e8be53a9bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  jumpPower: 10
+  isJumping: 0
+  hp: 10
 --- !u!1001 &674641001
 PrefabInstance:
   m_ObjectHideFlags: 0
