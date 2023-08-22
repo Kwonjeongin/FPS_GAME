@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // 목적 : W,A,S,D 키를 누르면 캐릭터를 그 방향으로 이동 시키고 싶다.
 // 필요속성 : 이동속도
@@ -19,6 +20,9 @@ using UnityEngine;
 
 // 목적3 : 플레이어가 피격을 당하면 hp를 damage 만큼 깎는다.
 // 필요속성 : hp
+
+// 목적 4 : 플레이어 hp(%) 슬라이더에 적용한다.
+// 필요속성 4 : hp, max hp,Slider
 public class PlayerMove : MonoBehaviour
 {
     // 필요속성 : 이동속도
@@ -34,11 +38,16 @@ public class PlayerMove : MonoBehaviour
 
     // 필요속성3 : hp
     public int hp = 10;
+    public Slider hpslider;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
     }
+
+    // 필요속성 4 : hp, max hp ,Slider
+    int maxHP = 10;
+
 
     void Update()
     {
@@ -83,6 +92,9 @@ public class PlayerMove : MonoBehaviour
 
         // 2-2 캐릭터 컨트롤러로 나를 이동시키고 싶다.
         characterController.Move(dir * speed * Time.deltaTime);
+
+        // 목적 4 : 플레이어 hp(%) 슬라이더에 적용한다.
+        hpslider.value = (float)hp / maxHP;
 
     }
     // 목적3 : 플레이어가 피격을 당하면 hp를 damage 만큼 깎는다.

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 // 목표: 적을 FSM 다이어그램에 따라 동작시키고 싶다.
 // 필요속성1: 적 상태
@@ -25,6 +26,11 @@ using UnityEngine;
 
 // 목표 7 : 플레이어의 공격을 받으면 hitdamage 만틈 에너미의 hp를 감소시킨다.
 // 필요속성 : hp
+
+// 목적 8 : 2초후에 나자신을 제거하겠다.
+
+// 목적 9 : 현재 에네미의 hp(%) 를 슬라이더에 적용한다.
+
 public class EnemyFsm : MonoBehaviour
 {
     // 필요속성: 적 상태
@@ -64,6 +70,10 @@ public class EnemyFsm : MonoBehaviour
     // 필요속성 7 : hp
     public int hp = 10; 
 
+    //필요속성 4 : hp ,max hp, slider
+    int maxHP = 10;
+    public Slider hpSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -101,9 +111,12 @@ public class EnemyFsm : MonoBehaviour
                // Die();
                 break;
         }
+
+        // 목적 9 : 현재 에네미의 hp(%) 를 슬라이더에 적용한다.
+        hpSlider.value = (float)hp / maxHP;
     }
 
-    
+
 
     private void Die()
     {
