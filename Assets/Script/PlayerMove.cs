@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // 목적 : W,A,S,D 키를 누르면 캐릭터를 그 방향으로 이동 시키고 싶다.
 // 필요속성 : 이동속도
@@ -23,6 +24,13 @@ using UnityEngine.UI;
 
 // 목적 4 : 플레이어 hp(%) 슬라이더에 적용한다.
 // 필요속성 4 : hp, max hp,Slider
+
+// 목적 5 : 적의공격을 받았을때 hitimage를 켰다가 꺼준다.
+// 필요속성 5 : hitimage 게임오브젝트
+
+//필요속성 6 : 현재시간, hitImage 종료시간
+
+// 목적 7 :GameManager가 Ready 상태일때는 플레이어와 적이 움직일 수 없도록 한다. 
 public class PlayerMove : MonoBehaviour
 {
     // 필요속성 : 이동속도
@@ -48,9 +56,20 @@ public class PlayerMove : MonoBehaviour
     // 필요속성 4 : hp, max hp ,Slider
     int maxHP = 10;
 
+    // 필요속성 5 : hitimage 게임오브젝트
+    public GameObject HitImage;
+
+    //필요속성 6 : 현재시간, hitImage 종료시간
+    float currentTime;
+    public float HitImageEndTime;
+
 
     void Update()
     {
+        // 목적 7 :GameManager가 Ready 상태일때는 플레이어와 적이 움직일 수 없도록 한다. 
+        if (GameManager.Instance.state != GameManager.Gamestate.start)
+            return;
+
         // 순서1 사용자의 입력을 받는다.
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -102,5 +121,60 @@ public class PlayerMove : MonoBehaviour
     public void DamageAction(int damage)
     {
         hp -= damage;
+
+        // 목적 5 : 적의공격을 받았을때 hitimage를 켰다가 꺼준다.
+        if (hp > 0)
+        {
+            StartCoroutine(PlayHitEffect());
+        }
+        else
+        {
+            StartCoroutine(DamageEffect());
+        }
+
+        // 목적 6 : 플레이어가 죽으면 hitImage 의 알파값을 현재 값에서 255로 만들어준다.
+
+
+        
     }
+
+    IEnumerator DamageEffect()
+    {
+        //hitimage 활성화
+        HitImage.gameObject.SetActive(true);
+        Color HitImageColor = HitImage.GetComponent<Image>().color;
+
+        while (true)
+        {
+            currentTime += Time.deltaTime;
+
+            yield return null;
+
+            HitImageColor.a = Mathf.Lerp(0, 1, currentTime / HitImageEndTime);
+
+            HitImage.GetComponent<Image>().color= HitImageColor;
+
+            if (currentTime > HitImageEndTime)
+            {
+                currentTime = 0;
+                break;
+            }
+                    
+        }
+
+        yield return null;
+    }
+    IEnumerator PlayHitEffect()
+    {
+        //hitimage 활성화
+        HitImage.gameObject.SetActive(true);
+
+        //0.5 초간 기다린다.
+        yield return new WaitForSeconds(0.2f);
+
+        //hitImage 비활성화
+        HitImage.gameObject.SetActive(false);
+    }
+
+    
 }
