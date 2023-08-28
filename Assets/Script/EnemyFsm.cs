@@ -314,9 +314,9 @@ public class EnemyFsm : MonoBehaviour
             //목표 14 : 에이전트가 NavMeshLink에 올라가고 내려가느는지 확이나여 특정 애니메이션을 넣고 
             if (navMeshAgent.isOnOffMeshLink)
             {
-                object navMeshOwner = navMeshAgent.newMeshOwner;
-                GameObject navMeshGo = (navMeshAgent as Component).gameobject;
-                print(navMeshGo.name + "navMeshGo.name로 이동하고 있습니다.");
+                //object navMeshOwner = navMeshAgent.newMeshOwner;
+                //GameObject navMeshGo = (navMeshAgent as Component).gameobject;
+                //print(navMeshGo.name + "navMeshGo.name로 이동하고 있습니다.");
                 //OffMeshLinkData offdata = navMeshAgent.currentOffMeshLinkData;
                 //print(offdata.offMeshLink.name);
                 

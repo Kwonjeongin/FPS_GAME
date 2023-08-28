@@ -80,6 +80,8 @@ public class PlayerFire : MonoBehaviour
 
     public int weaponPower = 2;
 
+    public object weaponModeTxt { get; internal set; }
+
     // Update is called once per frame
     void Update()
     {
