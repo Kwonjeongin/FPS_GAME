@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 목적: 플레이어에게 데미지를 입힌다.
 public class HitEvent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public EnemyFsm eFsm;
+
+    public void HitPlayer()
     {
-        
+        eFsm.AttackAction();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -10,6 +10,9 @@ using TMPro;
 
 // 목적 3 : 플레이어의 Hp가 0보다 작으면 상태 텍스트를 GAmeOver로 바꿔주고 상태또한 GameOver로바꿔준다.
 // 필요속성3 : hp가 들어가 있는 playerMove
+
+//목적 4 :  플레이어의 hp가 0이하라면, 플레이어의 애니메이션을 멈춘다.
+//필요속성 : 플레이어의 애니메이터 컴포넌트
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -19,14 +22,18 @@ public class GameManager : MonoBehaviour
     {
         Ready, 
         start, 
-        GameOver
+        GameOver,
+        Start
     }
 
     public Gamestate state = Gamestate.Ready;
     public TMP_Text stateText;
 
     // 필요속성3 : hp가 들어가 있는 playerMove
-    PlayerMove palyer;
+    PlayerMove player;
+
+    //필요속성 : 플레이어의 애니메이터 컴포넌트
+    private Animator animator;
 
     private void Awake()
     {
@@ -44,7 +51,8 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(GameStart());
 
-        palyer = GameObject.Find("Player").GetComponent<PlayerMove>();
+        player = GameObject.Find("Player").GetComponent<PlayerMove>();
+        animator = player.GetComponentInChildren<Animator>();
     }
     // 목적2 : 2초후 게임이 시작 된다 .Ready 상태에서 Start상태로 변경되며 게임이 시작된다.
     IEnumerator GameStart()
@@ -65,10 +73,15 @@ public class GameManager : MonoBehaviour
         
     }
 
+    // 목적3: 플레이어의 hp가 0보다 작으면 상태텍스트와 상태를 GameOver로 바꿔주고
+
     void CheakGameOver() 
     {
-        if(palyer.hp <= 0) 
+        if(player.hp <= 0) 
         {
+            // 목적4: 플레이어의 hp가 0 이하라면, 플레이어의 애니메이션을 멈춘다.
+            animator.SetFloat("MoveMotion", 0f);
+
             //상태 텍스트ON
             stateText.gameObject.SetActive(true);
 
